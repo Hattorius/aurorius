@@ -5,9 +5,10 @@
 
     let logo;
 
-    let welcome;
-    let finder;
-    let training;
+    // TODO: pls finish this with cool animation idk why bind no work :(((
+    var welcome;
+    var finder;
+    var training;
 
     onMount(() => {
         if (window.location.pathname == "/") {
@@ -65,5 +66,11 @@
         padding-left: 2rem;
         padding-top: .6rem;
         padding-bottom: .6rem;
+        cursor: pointer;
+        transition: 300ms ease;
+    }
+
+    li:hover {
+        background: rgba(255, 255, 255, 0.03);
     }
 </style>

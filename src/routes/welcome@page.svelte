@@ -16,7 +16,7 @@
 <style>
     div.welcome {
         padding: 1rem;
-        transition: 1s ease;
+        transition: 300ms ease;
     }
 
     div.welcome.hidden {
