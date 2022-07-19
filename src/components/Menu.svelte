@@ -4,6 +4,7 @@
     import Icon from '@iconify/svelte';
 
     let logo;
+    export let goto = (path) => {};
 
     // TODO: pls finish this with cool animation idk why bind no work :(((
     var welcome;
@@ -21,11 +22,11 @@
             }
         }, 2450)
 
-        location.subscribe(path => {
-            if (path == "/welcome") {
-                welcome.style.borderRight = '1px solid #fff;'
-            }
-        });
+        // location.subscribe(path => {
+        //     if (path == "/welcome") {
+        //         welcome.style.borderRight = '1px solid #fff;'
+        //     }
+        // });
     });
 </script>
 
@@ -35,9 +36,9 @@
     </div>
     
     <ul>
-        <li bind:this={welcome}><Icon icon="mdi:hand-wave" /> Welcome</li>
-        <li bind:this={finder}><Icon icon="mdi:mouse-move-vertical" /> Sensitivity finder</li>
-        <li bind:this={training}><Icon icon="et:scope" /> Training</li>
+        <li bind:this={welcome} on:click={() => goto('welcome')}><Icon icon="mdi:hand-wave" /> Welcome</li>
+        <li bind:this={finder} on:click={() => goto('sensitivity')}><Icon icon="mdi:mouse-move-vertical" /> Sensitivity finder</li>
+        <li bind:this={training} on:click={() => goto('training')}><Icon icon="et:scope" /> Training</li>
     </ul>
 </div>
 
