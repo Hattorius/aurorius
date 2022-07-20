@@ -4,12 +4,15 @@
 	import { initializeGame } from './../../scripts/initializegame.js';
 
 
+    let score = 0;
+    let timeLeft = 0;
     let canvas;
     let game;
     let error = '';
     let started = false;
     let setHeight = 0;
     let damagePrev = 0;
+    let startTime = 0;
     const onShoot = (crosshairPlacement, elements) => {
         var hit = false;
         var hitI = 0;
@@ -40,8 +43,10 @@
 
             console.log("Overshot by", closestOffset)
         } else {
-            const newDamagePrev = damagePrev = Math.floor((new Date()).getTime() / 1000);
-            const timeTillDamage = newDamagePrev - damagePrev; // do something with this
+            const newDamagePrev = Math.floor((new Date()).getTime() / 10);
+            const timeTillDamage = (newDamagePrev - damagePrev) / 100; // do something with this
+            console.log(timeTillDamage);
+            score += timeTillDamage * 100;
 
             elements[hitI] = [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2.5)), setHeight, 15];
             game.setElements(elements);
@@ -67,7 +72,20 @@
         ]);
         game.createCircles();
 
-        damagePrev = Math.floor((new Date()).getTime() / 1000);
+        damagePrev = Math.floor((new Date()).getTime() / 10);
+        startTime = (new Date()).getTime();
+        timeLeft = 30;
+
+        const intervalId = setInterval(() => {
+            const currentTime = (new Date()).getTime();
+            if (currentTime / 1000 > startTime / 1000 + 30) {
+                clearInterval(intervalId);
+                timeLeft = 0;
+                game.stop();
+                started = false;
+            }
+            timeLeft = Math.floor(300 - Math.floor(currentTime / 100 - startTime / 100)) / 10;
+        }, 50);
     }
 
 </script>
@@ -86,6 +104,11 @@
     {/if}
     <div class="crosshairholder">
         O
+    </div>
+
+    <div class="stats">
+        <h1>{timeLeft.toString()}s</h1>
+        <h3>Score: {score}</h3>
     </div>
 </div>
 
@@ -145,5 +168,23 @@
     }
     button:hover {
         background: rgba(0, 0, 0, 0.8);
+    }
+
+    div.stats {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        text-align: center;
+    }
+    div.stats > h1 {
+        font-weight: 500;
+        margin: 0;
+
+    }
+    div.stats> h3 {
+        font-weight: 400;
+        margin: 0;
     }
 </style>

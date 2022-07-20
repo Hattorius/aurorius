@@ -68,4 +68,10 @@ export class initializeGame {
     setElements = (elements) => {
         this.elements = elements;
     }
+
+    stop = () => {
+        document.removeEventListener("mousemove", this.mouseMoveHandler, false);
+        document.removeEventListener("mouseup", this.mouseUpHandler, false);
+        this.canvas.exitPointerLock();
+    }
 }
