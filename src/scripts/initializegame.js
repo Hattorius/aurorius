@@ -61,6 +61,7 @@ export class initializeGame {
 
     mouseUpHandler = (e) => {
         // console.log(this.crosshairPlacement);
+        this.canvas.requestPointerLock();
         this.onShoot(this.crosshairPlacement, this.elements);
     }
 

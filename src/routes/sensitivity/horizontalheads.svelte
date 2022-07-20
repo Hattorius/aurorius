@@ -9,6 +9,7 @@
     let error = '';
     let started = false;
     let setHeight = 0;
+    let damagePrev = 0;
     const onShoot = (crosshairPlacement, elements) => {
         var hit = false;
         var hitI = 0;
@@ -39,9 +40,13 @@
 
             console.log("Overshot by", closestOffset)
         } else {
-            elements[hitI] = [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2)), setHeight, 15];
+            const newDamagePrev = damagePrev = Math.floor((new Date()).getTime() / 1000);
+            const timeTillDamage = newDamagePrev - damagePrev; // do something with this
+
+            elements[hitI] = [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2.5)), setHeight, 15];
             game.setElements(elements);
             game.createCircles();
+            damagePrev = newDamagePrev;
         }
     }
 
@@ -57,10 +62,12 @@
         game.init(onShoot);
         setHeight = game.virtualHeight / 2 - 7.5;
         game.setElements([
-            [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2)), setHeight, 15],
-            [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2)), setHeight, 15]
+            [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2.5)), setHeight, 15],
+            [game.virtualWidth / 4 + (Math.random() * (game.virtualWidth / 2.5)), setHeight, 15]
         ]);
         game.createCircles();
+
+        damagePrev = Math.floor((new Date()).getTime() / 1000);
     }
 
 </script>
