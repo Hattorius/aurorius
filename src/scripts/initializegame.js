@@ -46,13 +46,13 @@ export class initializeGame {
     }
 
     mouseMoveHandler = (e) => {
-        this.virtualWidth -= e.movementX;
-        this.virtualHeight -= e.movementY;
+        this.virtualWidth -= e.movementX * this.sensitivity;
+        this.virtualHeight -= e.movementY * this.sensitivity;
 
         this.clear();
         for (var i = 0; i < this.elements.length; i++) {
-            this.elements[i][0] -= e.movementX;
-            this.elements[i][1] -= e.movementY;
+            this.elements[i][0] -= e.movementX * this.sensitivity;
+            this.elements[i][1] -= e.movementY * this.sensitivity;
 
             const element = this.elements[i];
             this.createCircle(element[0], element[1], element[2]);
@@ -72,6 +72,6 @@ export class initializeGame {
     stop = () => {
         document.removeEventListener("mousemove", this.mouseMoveHandler, false);
         document.removeEventListener("mouseup", this.mouseUpHandler, false);
-        this.canvas.exitPointerLock();
+        document.exitPointerLock();
     }
 }
